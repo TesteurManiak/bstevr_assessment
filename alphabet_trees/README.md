@@ -20,10 +20,4 @@ You can edit the `main` in the file `lib/alphabet_trees.dart` then run the comma
 
 ## Unit tests
 
-All unit tests can be found in the `test/` folder, you can run the command `dart test` to check if they all pass correctly.
-
-You can generate the code coverage with the command:
-
-```bash
-dart pub run test_coverage
-```
+All unit tests can be found in the `test/` folder, you can run the command `dart test` to check if they all pass correctly. The coverage has been generated using the package [test_coverage](https://pub.dev/packages/test_coverage).

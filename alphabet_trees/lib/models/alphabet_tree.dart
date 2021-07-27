@@ -7,7 +7,19 @@ class AlphabetTree {
   final List<AlphabetTree> nodes;
   final String letter;
 
-  AlphabetTree._private(this.letter, {this.nodes = const []});
+  /// Get all letters in the tree.
+  late final Iterable<String> values;
+
+  AlphabetTree._private(this.letter, {this.nodes = const []}) {
+    final list = [letter];
+    if (nodes.isNotEmpty) {
+      final complete = nodes.map<Iterable<String>>((e) => e.values).reduce(
+            (list1, list2) => <String>[...list1, ...list2],
+          );
+      list.addAll(complete);
+    }
+    values = list;
+  }
 
   /// Creates an AlphabetTree of any [size] or [length].
   ///
@@ -53,18 +65,6 @@ class AlphabetTree {
     List<AlphabetTree> nodes = const [],
   }) =>
       AlphabetTree._private(initialLetter, nodes: nodes);
-
-  /// Get all letters in the tree.
-  Iterable<String> get values {
-    final list = [letter];
-    if (nodes.isNotEmpty) {
-      final complete = nodes.map<Iterable<String>>((e) => e.values).reduce(
-            (list1, list2) => <String>[...list1, ...list2],
-          );
-      list.addAll(complete);
-    }
-    return list;
-  }
 
   /// Compare the data of the two trees and prints all the unique letters within
   /// the two trees, in alphabetic order.
