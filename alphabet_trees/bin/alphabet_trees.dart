@@ -8,8 +8,8 @@ void main(List<String> arguments) {
   print('=== TREE VALUES ===\n${tree.values}');
 
   final otherTree = alphabet_trees.AlphabetTree(
-    size: rand.nextInt(3),
-    length: rand.nextInt(5),
+    size: rand.nextInt(5),
+    length: rand.nextInt(10),
   );
   print('=== OTHERTREE VALUES ===\n${otherTree.values}');
 
