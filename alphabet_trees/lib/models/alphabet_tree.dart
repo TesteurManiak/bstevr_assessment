@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:meta/meta.dart';
+
 const _alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 final _rnd = Random();
 
@@ -60,7 +62,8 @@ class AlphabetTree {
 
   /// Test constructor to test value assignation and comparisons.
   /// FOR UNIT TESTS ONLY
-  factory AlphabetTree.test({
+  @visibleForTesting
+  static AlphabetTree test({
     required String initialLetter,
     List<AlphabetTree> nodes = const [],
   }) =>
