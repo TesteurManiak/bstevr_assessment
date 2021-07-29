@@ -1,9 +1,11 @@
 # chat_screen
 
+<p float="left">
 <img src="https://raw.githubusercontent.com/TesteurManiak/bstevr_assessment/main/chat_screen/screenshots/1.png" height="400"/>
 <img src="https://raw.githubusercontent.com/TesteurManiak/bstevr_assessment/main/chat_screen/screenshots/2.png" height="400"/>
 <img src="https://raw.githubusercontent.com/TesteurManiak/bstevr_assessment/main/chat_screen/screenshots/3.png" height="400"/>
 <img src="https://raw.githubusercontent.com/TesteurManiak/bstevr_assessment/main/chat_screen/screenshots/4.png" height="400"/>
+</p>
 
 ## Instructions
 
