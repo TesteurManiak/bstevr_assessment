@@ -1,4 +1,12 @@
+import 'package:flutter/material.dart';
+
 enum MessageAlignment { left, right }
+
+extension MessageAlignmentModifier on MessageAlignment {
+  Alignment toMaterialAlignment() => this == MessageAlignment.left
+      ? Alignment.centerLeft
+      : Alignment.centerRight;
+}
 
 class MessageModel {
   final String senderName;

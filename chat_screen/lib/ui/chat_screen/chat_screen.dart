@@ -10,18 +10,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen>
     with SingleTickerProviderStateMixin {
-  final _messages = List<MessageModel>.generate(
-    20,
-    (index) => MessageModel(
-      senderName: 'Lastname',
-      initials: 'FL',
-      message:
-          'Lorem ipsum dolor sit amet, consectetur ipsum dolor sit amet, consecteturipsum dolor sit amet',
-      date: DateTime.now(),
-      alignment:
-          index % 2 == 0 ? MessageAlignment.left : MessageAlignment.right,
-    ),
-  );
+  final _messages = <MessageModel>[];
 
   int _currentTabIndex = 0;
 
@@ -30,6 +19,32 @@ class _ChatScreenState extends State<ChatScreen>
     vsync: this,
     initialIndex: _currentTabIndex,
   );
+
+  void _submitMessage(String message) {
+    setState(() {
+      _messages.add(MessageModel(
+        senderName: 'Current User',
+        initials: 'CU',
+        message: message,
+        date: DateTime.now(),
+        alignment: MessageAlignment.right,
+      ));
+    });
+  }
+
+  void _addMessage() {
+    setState(() {
+      _messages.add(
+        MessageModel(
+          senderName: 'Random User',
+          initials: 'RU',
+          message: 'random user message',
+          date: DateTime.now(),
+          alignment: MessageAlignment.left,
+        ),
+      );
+    });
+  }
 
   @override
   void dispose() {
@@ -40,7 +55,10 @@ class _ChatScreenState extends State<ChatScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: MessageBottomBar(),
+      bottomNavigationBar: MessageBottomBar(
+        submitMessageCallback: _submitMessage,
+        addMessageCallback: _addMessage,
+      ),
       body: NestedScrollView(
         body: ListView(
           children: [

@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 const _kBarHeight = 100.0;
 
 class MessageBottomBar extends StatefulWidget with PreferredSizeWidget {
+  final Function()? addMessageCallback;
+  final Function(String)? submitMessageCallback;
+
+  MessageBottomBar({this.addMessageCallback, this.submitMessageCallback});
+
   @override
   State<StatefulWidget> createState() => _MessageBottomBarState();
 
@@ -12,6 +17,8 @@ class MessageBottomBar extends StatefulWidget with PreferredSizeWidget {
 }
 
 class _MessageBottomBarState extends State<MessageBottomBar> {
+  final _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -32,10 +39,11 @@ class _MessageBottomBarState extends State<MessageBottomBar> {
         children: [
           CustomIconBtn(
             iconData: Icons.add,
-            onPressed: () => print('add'),
+            onPressed: widget.addMessageCallback,
           ),
           Expanded(
             child: TextField(
+              controller: _controller,
               decoration: InputDecoration(
                 hintText: 'Chat with the crew...',
               ),
@@ -43,7 +51,12 @@ class _MessageBottomBarState extends State<MessageBottomBar> {
           ),
           CustomIconBtn(
             iconData: Icons.send,
-            onPressed: () => print('send'),
+            onPressed: () {
+              if (widget.submitMessageCallback != null) {
+                widget.submitMessageCallback!(_controller.text);
+                _controller.clear();
+              }
+            },
           ),
         ],
       ),
