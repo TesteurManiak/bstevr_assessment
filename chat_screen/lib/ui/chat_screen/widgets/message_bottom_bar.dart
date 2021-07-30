@@ -18,6 +18,28 @@ class MessageBottomBar extends StatefulWidget with PreferredSizeWidget {
 
 class _MessageBottomBarState extends State<MessageBottomBar> {
   final _controller = TextEditingController();
+  bool _canSubmit = false;
+
+  void _textInputListener() {
+    if (_controller.text.isEmpty && _canSubmit == true) {
+      setState(() => _canSubmit = false);
+    } else if (_controller.text.isNotEmpty && _canSubmit == false) {
+      setState(() => _canSubmit = true);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(_textInputListener);
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(_textInputListener);
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +72,17 @@ class _MessageBottomBarState extends State<MessageBottomBar> {
             ),
           ),
           CustomIconBtn(
+            backgroundColor: _canSubmit ? Colors.green : Colors.transparent,
             iconData: Icons.send,
             onPressed: () {
-              if (widget.submitMessageCallback != null) {
+              if (_canSubmit &&
+                  widget.submitMessageCallback != null &&
+                  _controller.text.isNotEmpty) {
                 widget.submitMessageCallback!(_controller.text);
                 _controller.clear();
+                setState(() {
+                  _canSubmit = false;
+                });
               }
             },
           ),
