@@ -65,14 +65,6 @@ void main() {
         final thirdNode = secondNode.nodes[0];
         expect(thirdNode.nodes.isEmpty, true);
       });
-
-      test('size: 5 - length: 10', () {
-        final tree = AlphabetTree(
-          size: 5,
-          length: 10,
-        );
-        expect(tree.nodes.length, 5);
-      });
     });
   });
 
