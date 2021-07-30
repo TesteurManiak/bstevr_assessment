@@ -72,7 +72,8 @@ class _MessageBottomBarState extends State<MessageBottomBar> {
             ),
           ),
           CustomIconBtn(
-            backgroundColor: _canSubmit ? Colors.green : Colors.transparent,
+            backgroundColor:
+                _canSubmit ? Colors.lightGreenAccent : Colors.transparent,
             iconData: Icons.send,
             onPressed: () {
               if (_canSubmit &&
