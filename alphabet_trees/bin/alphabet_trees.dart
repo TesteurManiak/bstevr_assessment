@@ -7,10 +7,10 @@ void main(List<String> arguments) {
   final tree = alphabet_trees.AlphabetTree(length: rand.nextInt(10));
   print('=== TREE VALUES ===\n${tree.values}');
 
-  final otherTree = alphabet_trees.AlphabetTree(
-    size: rand.nextInt(5),
-    length: rand.nextInt(10),
-  );
+  final size = 5;
+  final length = 10;
+  print('length: $length - size: $size');
+  final otherTree = alphabet_trees.AlphabetTree(size: size, length: length);
   print('=== OTHERTREE VALUES ===\n${otherTree.values}');
 
   print('=== COMPARE ===');

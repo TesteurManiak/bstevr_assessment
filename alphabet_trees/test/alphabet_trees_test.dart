@@ -30,10 +30,7 @@ void main() {
         expect(secondNode.nodes.length, 1);
 
         final thirdNode = secondNode.nodes[0];
-        expect(thirdNode.nodes.length, 1);
-
-        final fourthNode = thirdNode.nodes[0];
-        expect(fourthNode.nodes.isEmpty, true);
+        expect(thirdNode.nodes.isEmpty, true);
       });
     });
 
@@ -49,10 +46,7 @@ void main() {
         expect(firstNode.nodes.length, 2);
 
         final secondNode = firstNode.nodes[0];
-        expect(secondNode.nodes.length, 2);
-
-        final thirdNode = secondNode.nodes[0];
-        expect(thirdNode.nodes.isEmpty, true);
+        expect(secondNode.nodes.isEmpty, true);
       });
 
       test('size: 2 - length: 3', () {
@@ -69,10 +63,15 @@ void main() {
         expect(secondNode.nodes.length, 2);
 
         final thirdNode = secondNode.nodes[0];
-        expect(thirdNode.nodes.length, 2);
+        expect(thirdNode.nodes.isEmpty, true);
+      });
 
-        final fourthNode = thirdNode.nodes[0];
-        expect(fourthNode.nodes.isEmpty, true);
+      test('size: 5 - length: 10', () {
+        final tree = AlphabetTree(
+          size: 5,
+          length: 10,
+        );
+        expect(tree.nodes.length, 5);
       });
     });
   });
@@ -102,6 +101,15 @@ void main() {
           nodes: [AlphabetTree.test(initialLetter: 'A')],
         );
         expect(tree.values, ['A', 'A']);
+      });
+
+      test('3', () {
+        final tree = AlphabetTree(size: 1);
+        expect(tree.values.length, 2);
+
+        tree.nodes.add(AlphabetTree.test(initialLetter: 'Z'));
+        expect(tree.values.length, 3);
+        expect(tree.values.contains('Z'), true);
       });
     });
   });

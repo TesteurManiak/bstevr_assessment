@@ -3,16 +3,13 @@ import 'dart:math';
 import 'package:meta/meta.dart';
 
 const _alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-final _rnd = Random();
 
 class AlphabetTree {
   final List<AlphabetTree> nodes;
   final String letter;
 
   /// Get all letters in the tree.
-  late final Iterable<String> values;
-
-  AlphabetTree._private(this.letter, {this.nodes = const []}) {
+  Iterable<String> get values {
     final list = [letter];
     if (nodes.isNotEmpty) {
       final complete = nodes.map<Iterable<String>>((e) => e.values).reduce(
@@ -20,8 +17,10 @@ class AlphabetTree {
           );
       list.addAll(complete);
     }
-    values = list;
+    return list;
   }
+
+  AlphabetTree._private(this.letter, {this.nodes = const []});
 
   /// Creates an AlphabetTree of any [size] or [length].
   ///
@@ -36,13 +35,13 @@ class AlphabetTree {
       'You must provide at least one argument',
     );
 
-    final _length = length ?? 0;
+    final _length = length ?? 1;
     final _size = size ?? 1;
     assert(_size >= 0, 'You must provide a valid size');
 
     final _nodes = <AlphabetTree>[];
 
-    if (_length >= 0) {
+    if (_length > 0) {
       _nodes.addAll(List<AlphabetTree>.generate(
         _size,
         (_) => AlphabetTree(
@@ -54,7 +53,7 @@ class AlphabetTree {
 
     return AlphabetTree._private(
       String.fromCharCode(
-        _alphabet.codeUnitAt(_rnd.nextInt(_alphabet.length)),
+        _alphabet.codeUnitAt(Random().nextInt(_alphabet.length)),
       ),
       nodes: _nodes,
     );
