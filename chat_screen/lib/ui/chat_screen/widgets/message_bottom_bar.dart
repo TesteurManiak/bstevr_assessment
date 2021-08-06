@@ -17,7 +17,9 @@ class MessageBottomBar extends StatefulWidget with PreferredSizeWidget {
 }
 
 class _MessageBottomBarState extends State<MessageBottomBar> {
-  final _controller = TextEditingController();
+  late final _controller = TextEditingController()
+    ..addListener(_textInputListener);
+
   bool _canSubmit = false;
 
   void _textInputListener() {
@@ -26,12 +28,6 @@ class _MessageBottomBarState extends State<MessageBottomBar> {
     } else if (_controller.text.isNotEmpty && _canSubmit == false) {
       setState(() => _canSubmit = true);
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _controller.addListener(_textInputListener);
   }
 
   @override
@@ -68,6 +64,10 @@ class _MessageBottomBarState extends State<MessageBottomBar> {
               controller: _controller,
               decoration: InputDecoration(
                 hintText: 'Chat with the crew...',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(6),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
               ),
             ),
           ),
