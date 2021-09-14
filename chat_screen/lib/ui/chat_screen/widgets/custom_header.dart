@@ -20,75 +20,26 @@ class CustomHeader extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final appBarTheme = Theme.of(context).appBarTheme;
     final scale = 1 - shrinkOffset / maxExtent;
     final isSemiCollapsed = scale < 0.75;
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: appBarTheme.backgroundColor,
         boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.4),
-            blurRadius: 6,
-          )
+          if (appBarTheme.elevation != null && appBarTheme.elevation! > 0)
+            BoxShadow(
+              color: Colors.black.withOpacity(0.4),
+              blurRadius: 6,
+              offset: Offset(0, appBarTheme.elevation!),
+            )
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+      child: TabBarView(
+        controller: tabController,
         children: [
-          Row(
-            children: [
-              BackButton(),
-              const Text(
-                'FAMILY',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ],
-          ),
-          if (!isSemiCollapsed)
-            Padding(
-              padding: const EdgeInsets.only(left: 32, bottom: 16),
-              child: const Text(
-                '6 Members',
-                style: TextStyle(
-                  color: Colors.deepPurple,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          TabBar(
-            indicatorColor: Colors.lightGreenAccent,
-            controller: tabController,
-            tabs: const <Widget>[
-              Text(
-                'CHAT',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                'SUGGESTIONS',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: tabController,
-              children: [
-                ChatTabView(isSemiCollapsed, maxExtent * scale),
-                SuggestionsTabView(),
-              ],
-            ),
-          ),
+          ChatTabView(isSemiCollapsed, maxExtent * scale),
+          SuggestionsTabView(),
         ],
       ),
     );
