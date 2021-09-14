@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 class ChatTabView extends StatelessWidget {
   final bool isCollapsed;
+  final double maxHeight;
 
-  ChatTabView(this.isCollapsed);
+  ChatTabView(this.isCollapsed, this.maxHeight);
 
   final _chats = List<ChatModel>.generate(
     10,
@@ -22,11 +23,11 @@ class ChatTabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       scrollDirection: Axis.horizontal,
       itemCount: _chats.length,
       separatorBuilder: (_, __) => const SizedBox(width: 8),
-      itemBuilder: (_, index) => ChatWidget(_chats[index]),
+      itemBuilder: (_, index) => ChatWidget(_chats[index], maxHeight),
     );
   }
 }
